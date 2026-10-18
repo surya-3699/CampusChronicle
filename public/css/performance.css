@@ -1,0 +1,12 @@
+/* Preserve the existing appearance while isolating background compositing. */
+.cc-video-background{contain:strict;transform:translateZ(0)}
+.cc-video-background video{backface-visibility:hidden}
+body.liquid-glass-app::before{will-change:transform}
+/* Closed drawers must not widen the page or receive keyboard focus. */
+@media(max-width:900px){
+  #navMenu{visibility:hidden;transition:transform .35s ease,visibility .35s;pointer-events:none}
+  #navMenu.nav-open{visibility:visible;pointer-events:auto}
+}
+html{overflow-x:clip}
+.event-sidebar:not(.show){visibility:hidden;pointer-events:none}
+.event-sidebar.show{visibility:visible;pointer-events:auto}

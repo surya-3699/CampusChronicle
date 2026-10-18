@@ -1,0 +1,5 @@
+Options -Indexes
+DirectoryIndex index.php
+<FilesMatch "(?i)^(\.|.*\.(sql|md|log|ini|env|zip|bak|json|txt)$)">
+    Require all denied
+</FilesMatch>

@@ -1,0 +1,12 @@
+.git
+.env
+.env.*
+*.zip
+storage/*
+!storage/.htaccess
+# Not needed at runtime: documentation, deployment notes, templates and load-test tool.
+docs
+*.md
+production.env.example
+tools/loadtest.py
+.gitignore

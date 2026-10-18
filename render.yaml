@@ -1,0 +1,59 @@
+# Review paid service/disk costs in Render before applying.
+# MySQL is configured separately; Render PostgreSQL is not compatible.
+services:
+  - type: web
+    name: campus-chronicle
+    runtime: docker
+    # Region cannot be changed later for a service with a disk. Singapore is the closest Render region to
+    # India and sits next to DigitalOcean's Singapore database region.
+    region: singapore
+    plan: starter
+    autoDeployTrigger: "off"
+    dockerfilePath: ./Dockerfile          # Apache event MPM + PHP-FPM; use ./Dockerfile.prefork to roll back
+    healthCheckPath: /index.php?page=healthz   # answered by the gateway without touching PHP sessions or MySQL
+    disk:
+      name: campus-data
+      mountPath: /var/data
+      sizeGB: 5
+    envVars:
+      - key: PORT
+        value: "10000"
+      - key: APP_ENV
+        value: production
+      - key: APP_MAINTENANCE
+        value: "1"
+      - key: APP_URL
+        sync: false
+      - key: CC_STORAGE_PATH
+        value: /var/data/storage
+      - key: CC_AUTO_MIGRATE
+        value: "0"
+      # --- Request gateway (config/gateway.php); see docs/SCALING.md ---
+      # FPM_MAX_CHILDREN and GATEWAY_MAX_ACTIVE are sized automatically from the
+      # instance's memory at start-up; set them here only to override.
+      - key: GATEWAY_ENABLED
+        value: "1"
+      - key: GATEWAY_RATE_GET
+        value: "600"
+      - key: GATEWAY_RATE_POST
+        value: "120"
+      - key: GATEWAY_QUEUE_MS
+        value: "1500"
+      - key: GOOGLE_CLIENT_ID
+        value: 70293926363-roqpk3tr7uf9evqsgnonrml448u4ahqm.apps.googleusercontent.com
+      - key: LINKEDIN_CLIENT_ID
+        sync: false
+      - key: LINKEDIN_CLIENT_SECRET
+        sync: false
+      - key: LINKEDIN_REDIRECT_URI
+        sync: false
+      - key: DB_HOST
+        sync: false
+      - key: DB_PORT
+        value: "3306"
+      - key: DB_NAME
+        sync: false
+      - key: DB_USER
+        sync: false
+      - key: DB_PASSWORD
+        sync: false

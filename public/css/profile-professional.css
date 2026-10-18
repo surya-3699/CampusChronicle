@@ -1,0 +1,43 @@
+/* Campus Chronicle — professional profile layer */
+.cc-profile{max-width:1320px;margin:44px auto 96px;padding:0 28px;color:#fff}
+.cc-profile-hero{position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.18);border-radius:30px;background:rgba(7,15,30,.60);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);box-shadow:0 30px 82px rgba(0,0,0,.27)}
+.cc-profile-cover{height:196px;background:linear-gradient(120deg,rgba(62,184,255,.24),rgba(155,95,255,.18),rgba(255,153,102,.13));border-bottom:1px solid rgba(255,255,255,.10)}
+.cc-profile-head{display:flex;gap:28px;align-items:flex-end;padding:0 34px 32px;margin-top:-62px}
+.cc-profile-avatar{width:132px;height:132px;border-radius:30px;object-fit:cover;border:5px solid rgba(255,255,255,.94);background:#0b1220;box-shadow:0 16px 40px rgba(0,0,0,.42)}
+.cc-profile-title h1{margin:0;color:#fff;font-size:34px;line-height:1.1;letter-spacing:-.02em}
+.cc-profile-title p{margin:8px 0;color:rgba(244,248,255,.76);font-size:15px}
+.cc-profile-badge{display:inline-flex;align-items:center;padding:7px 11px;border-radius:999px;background:rgba(100,220,180,.14);border:1px solid rgba(144,240,205,.26);color:#dcffef;font-size:11px;font-weight:600}
+.cc-profile-grid{display:grid;grid-template-columns:1.45fr 1fr;gap:26px;margin-top:26px;align-items:start}
+.cc-profile-card{padding:28px;border:1px solid rgba(255,255,255,.15);border-radius:24px;background:rgba(7,15,30,.56);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);box-shadow:inset 0 1px 0 rgba(255,255,255,.10),0 18px 55px rgba(0,0,0,.18);transition:transform .22s ease,border-color .22s ease,background .22s ease,box-shadow .22s ease}
+.cc-profile-card:hover{transform:translateY(-2px);border-color:rgba(255,255,255,.20);background:rgba(10,18,36,.60);box-shadow:inset 0 1px 0 rgba(255,255,255,.13),0 22px 62px rgba(0,0,0,.22)}
+.cc-profile-card h2{color:#fff;font-size:20px;line-height:1.25;margin:0 0 22px;font-weight:700}
+.cc-profile-fields{display:grid;grid-template-columns:1fr 1fr;gap:17px}
+.cc-profile-field{padding:16px 17px;border:1px solid rgba(255,255,255,.10);border-radius:15px;background:rgba(255,255,255,.042);min-height:70px;display:flex;flex-direction:column;justify-content:center}
+.cc-profile-field span{display:block;color:rgba(237,243,255,.60);font-size:10px;text-transform:uppercase;letter-spacing:.85px;margin-bottom:7px;font-weight:600}
+.cc-profile-field strong{color:#fff;font-size:13px;line-height:1.4;font-weight:650;overflow-wrap:anywhere}
+.cc-profile-tags{display:flex;flex-wrap:wrap;gap:10px}
+.cc-profile-tag{padding:8px 11px;border-radius:999px;border:1px solid rgba(126,231,255,.18);background:rgba(126,231,255,.085);color:#dbfaff;font-size:11px;font-weight:600}
+.cc-profile-actions{display:flex;gap:11px;flex-wrap:wrap}
+.cc-profile-actions button,.cc-profile-actions a{border:1px solid rgba(255,255,255,.15);border-radius:13px;background:rgba(255,255,255,.065);color:#fff;padding:10px 15px;text-decoration:none;transition:transform .2s ease,background .2s ease,border-color .2s ease}
+.cc-profile-actions button:hover,.cc-profile-actions a:hover{transform:translateY(-1px);background:rgba(255,255,255,.10);border-color:rgba(255,255,255,.23)}
+.cc-profile-form{display:grid;gap:17px}
+.cc-profile-form label{display:grid;gap:8px;color:#f5f7ff;font-size:14px;font-weight:600;line-height:1.25}
+.cc-profile-form input,.cc-profile-form textarea,.cc-profile-form select{width:100%;padding:12px 14px;border:1px solid rgba(255,255,255,.15);border-radius:13px;background:rgba(255,255,255,.065);color:#fff;font-size:14px;line-height:1.4;min-height:46px;transition:border-color .2s ease,background .2s ease,box-shadow .2s ease}
+.cc-profile-form input::placeholder,.cc-profile-form textarea::placeholder{color:rgba(232,239,255,.52)}
+.cc-profile-form input:focus,.cc-profile-form textarea:focus,.cc-profile-form select:focus{border-color:rgba(255,255,255,.28);background:rgba(255,255,255,.085);box-shadow:0 0 0 3px rgba(126,164,255,.11);outline:none}
+.cc-profile-form option{color:#111}
+.cc-profile-form .two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.cc-profile-form textarea{min-height:104px;resize:vertical}
+.cc-profile-form input[type=file]{padding:8px 10px;min-height:46px}
+.cc-profile-form .admin-action-btn{transition:transform .2s ease,background .2s ease,border-color .2s ease,box-shadow .2s ease}
+.cc-profile-form .admin-action-btn:hover{transform:translateY(-1px);box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 12px 28px rgba(60,89,190,.14)}
+.cc-profile .text-white-50{color:rgba(238,244,255,.68)!important}
+@media(max-width:1100px){.cc-profile-grid{grid-template-columns:1fr 1fr}.cc-profile{padding:0 22px}}
+@media(max-width:900px){.cc-profile-grid{grid-template-columns:1fr}}
+@media(max-width:600px){.cc-profile{margin:30px auto 70px;padding:0 16px}.cc-profile-hero{border-radius:24px}.cc-profile-cover{height:165px}.cc-profile-head{padding:0 20px 24px;align-items:flex-start;flex-direction:column;gap:18px}.cc-profile-avatar{width:110px;height:110px;border-radius:26px}.cc-profile-title h1{font-size:28px}.cc-profile-card{padding:22px;border-radius:20px}.cc-profile-fields,.cc-profile-form .two{grid-template-columns:1fr}.cc-profile-fields{gap:13px}.cc-profile-form{gap:15px}}
+@media(prefers-reduced-motion:reduce){.cc-profile-card,.cc-profile-actions a,.cc-profile-actions button,.cc-profile-form input,.cc-profile-form textarea,.cc-profile-form select{transition:none!important}}
+
+/* Profile banner + link refinements */
+.cc-profile-help{display:block;margin-top:7px;color:rgba(237,243,255,.54);font-size:11px;line-height:1.45}
+.cc-profile-cover{background-size:cover;background-position:center;transition:background-image .2s ease}
+

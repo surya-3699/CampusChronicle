@@ -1,0 +1,470 @@
+/* ============================================================
+   CAMPUS CHRONICLE — CINEMATIC VIDEO BACKGROUND SYSTEM
+   Scoped visual layer. Business logic and component markup remain untouched.
+============================================================ */
+
+:root {
+    --cc-video-overlay-public: rgba(2, 8, 20, 0.34);
+    --cc-video-overlay-private: rgba(3, 7, 18, 0.48);
+    --cc-video-surface: rgba(255, 255, 255, 0.075);
+    --cc-video-border: rgba(255, 255, 255, 0.17);
+    --cc-video-highlight: rgba(255, 255, 255, 0.22);
+}
+
+.cc-video-background {
+    position: fixed;
+    inset: 0;
+    z-index: -3;
+    overflow: hidden;
+    pointer-events: none;
+    background: #030711;
+}
+
+.cc-video-background video {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: center;
+    filter: brightness(0.78) saturate(1.12) contrast(1.04);
+}
+
+.cc-video-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    pointer-events: none;
+    background: var(--cc-video-overlay-private);
+}
+
+body.cc-video-public .cc-video-overlay {
+    background:
+        linear-gradient(180deg, rgba(2, 7, 18, 0.42) 0%, rgba(2, 7, 18, 0.18) 42%, rgba(2, 7, 18, 0.48) 100%),
+        var(--cc-video-overlay-public);
+}
+
+body.cc-video-page {
+    background-color: #030711 !important;
+    background-image: none !important;
+}
+
+body.cc-video-page nav,
+body.cc-video-page .card,
+body.cc-video-page .feature-card,
+body.cc-video-page .mission-card,
+body.cc-video-page .stat-box,
+body.cc-video-page .stat-card,
+body.cc-video-page .event-card,
+body.cc-video-page .gallery-card,
+body.cc-video-page .details-card,
+body.cc-video-page .dashboard-panel,
+body.cc-video-page .event-sidebar,
+body.cc-video-page .event-details-sidebar,
+body.cc-video-page .login,
+body.cc-video-page .cta,
+body.cc-video-page .features,
+body.cc-video-page .mission,
+body.cc-video-page .vision,
+body.cc-video-page .why,
+body.cc-video-page .admin-sidebar,
+body.cc-video-page .admin-content {
+    background-color: var(--cc-video-surface);
+    border-color: var(--cc-video-border);
+}
+
+body.cc-video-page .card:hover,
+body.cc-video-page .feature-card:hover,
+body.cc-video-page .event-card:hover,
+body.cc-video-page .gallery-card:hover {
+    border-color: var(--cc-video-highlight);
+}
+
+body.cc-auth-video-page {
+    background-color: #030711 !important;
+    background-image: none !important;
+    animation: none !important;
+}
+
+body.cc-auth-video-page .auth-container {
+    position: relative;
+    z-index: 2;
+    background: rgba(7, 17, 34, 0.38);
+    border: 1px solid rgba(255, 255, 255, 0.17);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 28px 80px rgba(0, 0, 0, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+body.cc-auth-video-page .brand-panel,
+body.cc-auth-video-page .auth-card {
+    position: relative;
+    z-index: 1;
+}
+
+body.cc-auth-video-page .auth-card {
+    background: rgba(255, 255, 255, 0.075);
+    border-left-color: rgba(255, 255, 255, 0.12);
+}
+
+@media (max-width: 768px) {
+    .cc-video-background video {
+        object-position: center;
+        filter: brightness(0.72) saturate(1.08) contrast(1.03);
+    }
+
+    body.cc-video-page .card,
+    body.cc-video-page .feature-card,
+    body.cc-video-page .event-card,
+    body.cc-video-page .gallery-card {
+        background-color: rgba(255, 255, 255, 0.09);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cc-video-background video {
+        animation: none;
+    }
+}
+
+
+/* ============================================================
+   POLISH PASS — PUBLIC CONTAINERS, GALLERY & ADMIN
+============================================================ */
+
+/* Keep page-level layout wrappers transparent. The glass treatment
+   belongs to the actual content cards, not a card around the cards. */
+body.cc-video-page .about-section,
+body.cc-video-page .gallery-section,
+body.cc-video-page .features,
+body.cc-video-page .mission,
+body.cc-video-page .vision,
+body.cc-video-page .why {
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+/* Contact: two clean glass cards sitting directly on the cinematic
+   background — no extra glass container around both cards. */
+body.cc-video-page .about-section .features {
+    display: grid;
+    gap: 30px;
+}
+
+/* Public gallery: remove the old opaque white section/card treatment. */
+body.cc-video-public .gallery-section {
+    min-height: calc(100vh - 90px);
+    padding: 78px 6% 90px;
+}
+
+body.cc-video-public .gallery-section .section-title {
+    margin-bottom: 42px;
+}
+
+body.cc-video-public .gallery-section .section-title h1,
+body.cc-video-public .gallery-section .section-title p,
+body.cc-video-public .gallery-section .gallery-content h3,
+body.cc-video-public .gallery-section .gallery-content p,
+body.cc-video-public .gallery-section .empty-gallery h2,
+body.cc-video-public .gallery-section .empty-gallery p {
+    color: #fff !important;
+    text-shadow: 0 2px 18px rgba(0,0,0,.30);
+}
+
+body.cc-video-public .gallery-card {
+    overflow: hidden;
+    background: linear-gradient(145deg, rgba(255,255,255,.13), rgba(255,255,255,.055)) !important;
+    border: 1px solid rgba(255,255,255,.20) !important;
+    border-radius: 24px !important;
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.22),
+        0 24px 60px rgba(0,0,0,.28) !important;
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+}
+
+body.cc-video-public .gallery-cover {
+    display: block;
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    background: rgba(255,255,255,.06);
+    border-bottom: 1px solid rgba(255,255,255,.13);
+}
+
+body.cc-video-public .gallery-content {
+    background: transparent !important;
+    padding: 24px 25px 26px;
+}
+
+body.cc-video-public .gallery-content p {
+    color: rgba(245,248,255,.78) !important;
+}
+
+body.cc-video-public .gallery-content .manage-btn {
+    color: #fff !important;
+}
+
+body.cc-video-public .empty-gallery {
+    background: linear-gradient(145deg, rgba(255,255,255,.12), rgba(255,255,255,.055)) !important;
+    border: 1px solid rgba(255,255,255,.20) !important;
+    color: #fff !important;
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+}
+
+/* ============================================================
+   ADMIN — ONE CONSISTENT GLASS SYSTEM
+============================================================ */
+
+body.cc-admin-page,
+body.cc-admin-page * {
+    color-scheme: dark;
+}
+
+body.cc-admin-page {
+    color: #fff !important;
+}
+
+body.cc-admin-page .container-fluid,
+body.cc-admin-page .admin-container,
+body.cc-admin-page .admin-content {
+    color: #fff !important;
+}
+
+body.cc-admin-page a,
+body.cc-admin-page button,
+body.cc-admin-page .btn,
+body.cc-admin-page h1,
+body.cc-admin-page h2,
+body.cc-admin-page h3,
+body.cc-admin-page h4,
+body.cc-admin-page h5,
+body.cc-admin-page h6,
+body.cc-admin-page p,
+body.cc-admin-page span,
+body.cc-admin-page label,
+body.cc-admin-page strong,
+body.cc-admin-page small,
+body.cc-admin-page th,
+body.cc-admin-page td,
+body.cc-admin-page .text-muted,
+body.cc-admin-page .text-secondary,
+body.cc-admin-page .text-dark,
+body.cc-admin-page .text-body,
+body.cc-admin-page .text-black {
+    color: #fff !important;
+}
+
+/* Flatten Bootstrap's many coloured card variants into the same
+   premium glass language. */
+body.cc-admin-page .card,
+body.cc-admin-page .card.shadow,
+body.cc-admin-page .card.shadow-sm,
+body.cc-admin-page .card.shadow-lg {
+    background: linear-gradient(145deg, rgba(255,255,255,.115), rgba(255,255,255,.055)) !important;
+    border: 1px solid rgba(255,255,255,.19) !important;
+    border-radius: 24px !important;
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.18),
+        0 22px 60px rgba(0,0,0,.25) !important;
+    backdrop-filter: blur(18px) saturate(135%);
+    -webkit-backdrop-filter: blur(18px) saturate(135%);
+    overflow: hidden;
+}
+
+body.cc-admin-page .card-header,
+body.cc-admin-page .card-header.bg-primary,
+body.cc-admin-page .card-header.bg-success,
+body.cc-admin-page .card-header.bg-warning,
+body.cc-admin-page .card-header.bg-info,
+body.cc-admin-page .card-header.bg-dark,
+body.cc-admin-page .card-header.bg-secondary,
+body.cc-admin-page .bg-primary,
+body.cc-admin-page .bg-success,
+body.cc-admin-page .bg-warning,
+body.cc-admin-page .bg-info,
+body.cc-admin-page .bg-dark,
+body.cc-admin-page .bg-secondary {
+    background: linear-gradient(135deg, rgba(255,255,255,.16), rgba(255,255,255,.075)) !important;
+    color: #fff !important;
+    border-color: rgba(255,255,255,.14) !important;
+}
+
+body.cc-admin-page .card-body {
+    color: #fff !important;
+    background: transparent !important;
+}
+
+body.cc-admin-page .table,
+body.cc-admin-page .table > :not(caption) > * > * {
+    color: #fff !important;
+    background-color: transparent !important;
+    border-color: rgba(255,255,255,.12) !important;
+}
+
+body.cc-admin-page .table-light,
+body.cc-admin-page .table-light > th,
+body.cc-admin-page .table-light > td {
+    color: #fff !important;
+    background: rgba(255,255,255,.08) !important;
+}
+
+body.cc-admin-page .table-hover > tbody > tr:hover > * {
+    color: #fff !important;
+    background: rgba(255,255,255,.07) !important;
+}
+
+body.cc-admin-page .border-bottom,
+body.cc-admin-page .border-top {
+    border-color: rgba(255,255,255,.16) !important;
+}
+
+/* Dashboard welcome banner */
+body.cc-admin-page .container-fluid > .card:first-child {
+    background: linear-gradient(135deg, rgba(255,255,255,.15), rgba(255,255,255,.06)) !important;
+}
+
+body.cc-admin-page .badge {
+    color: #fff !important;
+    border: 1px solid rgba(255,255,255,.16);
+}
+
+/* Quick-action buttons use one visual language instead of four
+   unrelated Bootstrap colours. */
+body.cc-admin-page .btn-success,
+body.cc-admin-page .btn-warning,
+body.cc-admin-page .btn-info,
+body.cc-admin-page .btn-dark,
+body.cc-admin-page .btn-primary,
+body.cc-admin-page .btn-secondary {
+    color: #fff !important;
+    background: linear-gradient(145deg, rgba(255,255,255,.16), rgba(255,255,255,.07)) !important;
+    border: 1px solid rgba(255,255,255,.20) !important;
+}
+
+/* Admin forms and controls */
+body.cc-admin-page .form-control,
+body.cc-admin-page .form-select,
+body.cc-admin-page input,
+body.cc-admin-page textarea,
+body.cc-admin-page select {
+    color: #fff !important;
+    background: rgba(255,255,255,.07) !important;
+    border-color: rgba(255,255,255,.18) !important;
+}
+
+body.cc-admin-page .form-control::placeholder,
+body.cc-admin-page input::placeholder,
+body.cc-admin-page textarea::placeholder {
+    color: rgba(255,255,255,.52) !important;
+}
+
+body.cc-admin-page canvas {
+    color: #fff !important;
+}
+
+@media (max-width: 768px) {
+    body.cc-video-public .gallery-section {
+        padding: 58px 20px 70px;
+    }
+
+    body.cc-admin-page .card {
+        border-radius: 20px !important;
+    }
+}
+
+
+/* ============================================================
+   3D ANIMATED BACKGROUND (user-facing pages)
+   Admin pages keep the ambient <video>; see layouts/background.php
+============================================================ */
+.cc-3d-background {
+    /* Shown instantly, and stays as the fallback when WebGL is unavailable. */
+    background:
+        radial-gradient(60% 55% at 20% 18%, rgba(30, 110, 190, 0.34), transparent 70%),
+        radial-gradient(55% 50% at 82% 78%, rgba(120, 60, 200, 0.30), transparent 70%),
+        linear-gradient(180deg, #071228 0%, #030711 100%);
+}
+
+.cc-3d-background canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    opacity: 0;
+    transition: opacity 0.9s ease;
+}
+
+.cc-3d-background.is-ready canvas {
+    opacity: 1;
+}
+
+.cc-3d-embed {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    pointer-events: none;
+    background: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cc-3d-background canvas {
+        transition: none;
+    }
+}
+
+/* Slowly drifting aurora glows: compositor-only (transform) so they cost the
+   main thread nothing. Frozen when the scene is paused, reduced-motion, or the
+   quality guard has stepped all the way down (.cc-3d-still). */
+.cc-3d-background::before,
+.cc-3d-background::after {
+    content: "";
+    position: absolute;
+    inset: -20%;
+    z-index: 0;
+    pointer-events: none;
+    will-change: transform;
+}
+
+.cc-3d-background::before {
+    background: radial-gradient(38% 38% at 28% 32%, rgba(50, 150, 255, 0.20), transparent 70%);
+    animation: cc-aurora-a 52s ease-in-out infinite alternate;
+}
+
+.cc-3d-background::after {
+    background: radial-gradient(36% 36% at 72% 68%, rgba(150, 90, 255, 0.18), transparent 70%);
+    animation: cc-aurora-b 68s ease-in-out infinite alternate;
+}
+
+.cc-3d-background canvas {
+    z-index: 1;
+}
+
+.cc-3d-background.cc-3d-still::before,
+.cc-3d-background.cc-3d-still::after {
+    animation: none;
+    will-change: auto;
+}
+
+@keyframes cc-aurora-a { to { transform: translate3d(9%, 7%, 0) scale(1.08); } }
+@keyframes cc-aurora-b { to { transform: translate3d(-8%, -6%, 0) scale(1.10); } }
+
+/* The scene is already dark and low-contrast, so the legibility overlay can be lighter. */
+body.cc-video-page .cc-3d-background + .cc-video-overlay,
+body.cc-auth-video-page .cc-3d-background + .cc-video-overlay {
+    background: rgba(2, 7, 18, 0.16);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cc-3d-background::before,
+    .cc-3d-background::after {
+        animation: none;
+        will-change: auto;
+    }
+}

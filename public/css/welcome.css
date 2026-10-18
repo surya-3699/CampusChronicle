@@ -1,0 +1,573 @@
+/* ======================================================
+   CAMPUS CHRONICLE
+   PREMIUM WELCOME SCREEN
+====================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Manrope','Segoe UI',sans-serif;
+}
+
+html,
+body{
+
+width:100%;
+height:100%;
+
+overflow:hidden;
+
+}
+
+/* ======================================================
+   BACKGROUND — the real campus photo, tinted with the
+   brand gradient so the loader/CTA text stays legible
+   and it still feels like part of the same product.
+====================================================== */
+
+body{
+    position:relative;
+    background:#03060f;
+    overflow:hidden;
+}
+
+/* Video Background */
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:url('../images/welcome/bvraju.jpg') center/cover no-repeat;
+    background-attachment:fixed;
+    z-index:-2;
+    filter:saturate(1.08) brightness(.72);
+}
+
+
+body::after{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:
+        linear-gradient(180deg, rgba(2,7,16,.30), rgba(2,7,16,.72)),
+        radial-gradient(circle at 20% 30%, rgba(0,197,255,0.15), transparent 25%),
+        radial-gradient(circle at 80% 20%, rgba(100,150,255,0.10), transparent 30%),
+        radial-gradient(circle at 50% 80%, rgba(150,50,255,0.08), transparent 35%),
+        radial-gradient(circle at 70% 60%, rgba(0,180,255,0.12), transparent 30%);
+    
+    animation:bgGlow 8s ease-in-out infinite;
+    z-index:-1;
+    pointer-events:none;
+}
+
+@keyframes bgGlow{
+    0%{
+        opacity:0.6;
+        filter:blur(60px);
+    }
+    50%{
+        opacity:0.8;
+        filter:blur(70px);
+    }
+    100%{
+        opacity:0.6;
+        filter:blur(60px);
+    }
+}
+
+/* ======================================================
+   LOADING SCREEN
+====================================================== */
+
+#loading-screen{
+
+position:fixed;
+
+top:0;
+
+left:0;
+
+width:100%;
+
+height:100%;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+background:transparent;
+
+z-index:999;
+
+transition:0.5s;
+
+}
+
+/* ======================================================
+LOADER
+====================================================== */
+
+.loader-wrapper{
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+justify-content:center;
+
+position:relative;
+
+}
+
+/* ======================================================
+LOGO
+====================================================== */
+
+.logo-wrapper{
+
+width:170px;
+
+height:170px;
+
+border:1.5px solid rgba(255,255,255,.35);
+
+border-radius:50%;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+background:rgba(255,255,255,.06);
+
+backdrop-filter:blur(12px);
+
+box-shadow:
+    0 0 25px rgba(0,197,223,.25),
+    0 15px 45px rgba(0,0,0,.35);
+
+animation:logoPulse 3s ease-in-out infinite;
+
+position:relative;
+
+z-index:5;
+
+}
+
+.loading-logo{
+
+width:120px;
+
+height:120px;
+
+object-fit:contain;
+
+border-radius:50%;
+
+}
+
+/* ======================================================
+OUTER RING
+====================================================== */
+
+.outer-ring{
+
+position:absolute;
+
+width:220px;
+
+height:220px;
+
+border-radius:50%;
+
+border:2px solid transparent;
+
+border-top:2px solid #00e5ff;
+
+border-right:2px solid rgba(0,229,255,.25);
+
+animation:rotateOuter 3s linear infinite;
+
+}
+
+/* ======================================================
+INNER RING
+====================================================== */
+
+.inner-ring{
+
+position:absolute;
+
+width:190px;
+
+height:190px;
+
+border-radius:50%;
+
+border:2px solid transparent;
+
+border-bottom:2px solid rgba(255,255,255,.55);
+
+animation:rotateInner 4s linear infinite reverse;
+
+}
+
+@keyframes rotateOuter{
+
+100%{
+
+transform:rotate(360deg);
+
+}
+
+}
+
+@keyframes rotateInner{
+
+100%{
+
+transform:rotate(360deg);
+
+}
+
+}
+
+@keyframes logoPulse{
+
+0%,100%{
+
+transform:scale(1);
+
+}
+
+50%{
+
+transform:scale(1.03);
+
+}
+
+}
+
+/* ======================================================
+TEXT
+====================================================== */
+
+.loading-text{
+
+margin-top:40px;
+
+text-align:center;
+
+}
+
+.loading-text h2{
+
+font-family:'Fraunces',Georgia,serif;
+
+font-size:40px;
+
+font-weight:600;
+
+color:white;
+
+letter-spacing:1px;
+
+text-shadow:0 4px 24px rgba(0,0,0,.45);
+
+}
+
+.loading-text p{
+
+margin-top:12px;
+
+font-size:16px;
+
+font-weight:500;
+
+color:#cfefff;
+
+letter-spacing:1.5px;
+
+text-transform:uppercase;
+
+}
+
+/* ======================================================
+WELCOME SCREEN
+====================================================== */
+
+#welcome-screen{
+
+display:none;
+
+position:fixed;
+
+top:0;
+
+left:0;
+
+width:100%;
+
+height:100%;
+
+justify-content:center;
+
+align-items:center;
+
+backdrop-filter:blur(6px);
+
+background:rgba(0,0,0,.15);
+
+opacity:0;
+
+transition:1s;
+
+}
+
+/* ======================================================
+WELCOME CARD
+====================================================== */
+
+.welcome-container{
+
+width:620px;
+
+max-width:90vw;
+
+padding:60px;
+
+text-align:center;
+
+background:rgba(8,20,40,.45);
+
+border:1px solid rgba(255,255,255,.16);
+
+border-radius:28px;
+
+backdrop-filter:blur(18px);
+
+box-shadow:
+    0 25px 70px rgba(0,0,0,.5),
+    0 0 0 1px rgba(255,255,255,.03) inset;
+
+}
+
+/* ======================================================
+WELCOME LOGO
+====================================================== */
+
+.welcome-logo{
+
+width:150px;
+
+margin-bottom:26px;
+
+border-radius:50%;
+
+border:2px solid rgba(255,255,255,.20);
+
+padding:10px;
+
+box-shadow:0 10px 40px rgba(0,197,223,.25);
+
+animation:logoPulse 4s infinite;
+
+}
+
+/* ======================================================
+TEXT
+====================================================== */
+
+.welcome-container h1{
+
+font-family:'Fraunces',Georgia,serif;
+
+font-size:44px;
+
+font-weight:600;
+
+color:white;
+
+letter-spacing:2px;
+
+margin-bottom:14px;
+
+}
+
+.welcome-container h3{
+
+font-size:17px;
+
+font-weight:600;
+
+color:#5eead4;
+
+letter-spacing:3px;
+
+text-transform:uppercase;
+
+margin-bottom:16px;
+
+}
+
+.welcome-container p{
+
+font-size:16px;
+
+color:#c3d3de;
+
+margin-bottom:34px;
+
+}
+
+/* ======================================================
+BUTTON
+====================================================== */
+
+#enterBtn{
+    padding:16px 50px;
+    border:2px solid rgba(0,229,255,.3);
+    border-radius:50px;
+    background:rgba(10,137,166,0.25);
+    color:white;
+    font-size:15.5px;
+    font-weight:700;
+    letter-spacing:.5px;
+    cursor:pointer;
+    transition:.35s cubic-bezier(.22,.72,.18,1);
+    box-shadow:
+        0 12px 30px rgba(0,180,216,.15),
+        inset 0 1px 1px rgba(255,255,255,.2);
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+    position:relative;
+    overflow:hidden;
+}
+
+#enterBtn::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:radial-gradient(circle at 30% 30%, rgba(0,229,255,.3), transparent 50%);
+    opacity:0;
+    transition:opacity .35s;
+}
+
+#enterBtn:hover{
+    transform:translateY(-3px) scale(1.05);
+    box-shadow:
+        0 20px 45px rgba(0,229,255,.35),
+        inset 0 1px 1px rgba(255,255,255,.3),
+        0 0 20px rgba(0,229,255,.25);
+    background:rgba(0,169,201,0.35);
+    border-color:rgba(0,229,255,.6);
+}
+
+#enterBtn:active{
+    transform:translateY(-1px);
+}
+
+.skip-intro{
+
+display:inline-block;
+
+margin-top:22px;
+
+font-size:13px;
+
+font-weight:600;
+
+letter-spacing:.5px;
+
+color:rgba(255,255,255,.55);
+
+text-decoration:none;
+
+transition:.3s;
+
+}
+
+.skip-intro:hover{
+
+color:#5eead4;
+
+}
+
+/* ======================================================
+RESPONSIVE
+====================================================== */
+
+@media(max-width:768px){
+
+.logo-wrapper{
+
+width:130px;
+
+height:130px;
+
+}
+
+.loading-logo{
+
+width:90px;
+
+height:90px;
+
+}
+
+.outer-ring{
+
+width:168px;
+
+height:168px;
+
+}
+
+.inner-ring{
+
+width:144px;
+
+height:144px;
+
+}
+
+.loading-text h2{
+
+font-size:28px;
+
+}
+
+.welcome-container{
+
+width:90%;
+
+padding:36px 26px;
+
+}
+
+.welcome-logo{
+
+width:110px;
+
+}
+
+.welcome-container h1{
+
+font-size:30px;
+
+}
+
+.welcome-container h3{
+
+font-size:14px;
+
+}
+
+}

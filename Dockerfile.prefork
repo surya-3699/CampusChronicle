@@ -1,0 +1,16 @@
+# ROLLBACK IMAGE — the previous Apache + mod_php (prefork) stack.
+# Use by setting `dockerfilePath: ./Dockerfile.prefork` in render.yaml.
+# Concurrency is limited to Apache's default 150 workers; see docs/SCALING.md.
+FROM php:8.3-apache-bookworm
+RUN apt-get update && apt-get install -y --no-install-recommends libzip-dev libonig-dev libcurl4-openssl-dev default-mysql-client util-linux \
+ && docker-php-ext-install pdo_mysql mbstring zip opcache curl \
+ && a2enmod rewrite headers \
+ && rm -rf /var/lib/apt/lists/*
+WORKDIR /var/www/html
+COPY . /var/www/html/
+COPY deploy/apache-prefork.conf /etc/apache2/sites-available/000-default.conf
+COPY deploy/php.ini /usr/local/etc/php/conf.d/campus.ini
+RUN mv public/uploads /opt/campus-upload-seed && ln -s /var/data/uploads public/uploads \
+ && chmod +x deploy/start-prefork.sh && mkdir -p /var/data
+EXPOSE 10000
+CMD ["/var/www/html/deploy/start-prefork.sh"]

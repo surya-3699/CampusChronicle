@@ -1,0 +1,288 @@
+/* =====================================================
+   CAMPUS CHRONICLE — ACTIVITY CENTER
+===================================================== */
+
+.activity-wrapper{
+    position:relative;
+}
+
+.activity-btn{
+    width:50px;
+    height:50px;
+    padding:0;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    border:1px solid rgba(255,255,255,.16);
+    border-radius:15px;
+    background:rgba(255,255,255,.065);
+    color:#fff;
+    cursor:pointer;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.09), 0 8px 20px rgba(0,0,0,.12);
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+    transition:.25s ease;
+}
+
+.activity-icon{
+    display:grid;
+    place-items:center;
+    font-size:17px;
+}
+
+.activity-btn:hover,
+.activity-btn[aria-expanded="true"]{
+    color:#fff;
+    background:rgba(255,255,255,.105);
+    border-color:rgba(126,231,255,.42);
+    transform:translateY(-2px);
+    box-shadow:0 10px 24px rgba(0,0,0,.16), 0 0 18px rgba(87,218,255,.12);
+}
+
+.activity-count{
+    position:absolute;
+    top:-6px;
+    right:-6px;
+    min-width:20px;
+    height:20px;
+    padding:0 5px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border:2px solid rgba(7,18,37,.92);
+    border-radius:999px;
+    background:#ff4d67;
+    color:#fff;
+    font-size:10px;
+    font-weight:800;
+    line-height:1;
+}
+
+.activity-panel{
+    position:absolute;
+    top:62px;
+    right:0;
+    width:min(390px,calc(100vw - 28px));
+    max-height:min(560px,calc(100vh - 105px));
+    overflow:hidden;
+    border:1px solid rgba(255,255,255,.15);
+    border-radius:22px;
+    background:rgba(7,17,35,.78);
+    box-shadow:0 26px 65px rgba(0,0,0,.34), inset 0 1px 0 rgba(255,255,255,.06);
+    backdrop-filter:blur(24px) saturate(125%);
+    -webkit-backdrop-filter:blur(24px) saturate(125%);
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+    transform:translateY(-8px) scale(.985);
+    transform-origin:top right;
+    transition:opacity .2s ease,visibility .2s ease,transform .2s ease;
+    z-index:10020;
+}
+
+.activity-panel.show{
+    opacity:1;
+    visibility:visible;
+    pointer-events:auto;
+    transform:translateY(0) scale(1);
+}
+
+.activity-header{
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    padding:22px 22px 17px;
+    border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.activity-kicker{
+    display:block;
+    margin-bottom:5px;
+    color:#98ecff;
+    font-size:10px;
+    font-weight:800;
+    letter-spacing:1.2px;
+    text-transform:uppercase;
+}
+
+.activity-header h3,
+.activity-guest h3{
+    margin:0;
+    color:#fff;
+    font-family:inherit;
+    font-size:21px;
+    font-weight:750;
+}
+
+.activity-header p{
+    margin:5px 0 0;
+    color:rgba(255,255,255,.58);
+    font-size:12.5px;
+    line-height:1.45;
+}
+
+.activity-total{
+    align-self:flex-start;
+    flex:0 0 auto;
+    padding:7px 10px;
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:999px;
+    background:rgba(255,255,255,.06);
+    color:#fff;
+    font-size:11px;
+    font-weight:750;
+}
+
+.activity-list{
+    max-height:385px;
+    overflow:auto;
+}
+
+.activity-card{
+    display:block;
+    padding:16px 20px;
+    border-bottom:1px solid rgba(255,255,255,.07);
+    color:#fff;
+    text-decoration:none;
+    transition:.2s ease;
+}
+
+.activity-card:hover{
+    background:rgba(126,231,255,.075);
+}
+
+.activity-card.unread{
+    background:linear-gradient(90deg,rgba(78,202,226,.10),rgba(255,255,255,.025));
+}
+
+.activity-card-top{
+    display:flex;
+    justify-content:space-between;
+    gap:12px;
+}
+
+.activity-title{
+    color:#fff;
+    font-size:13.5px;
+    font-weight:700;
+    line-height:1.35;
+}
+
+.activity-dot{
+    display:inline-block;
+    width:6px;
+    height:6px;
+    margin:0 0 2px 6px;
+    border-radius:50%;
+    background:#7ee7ff;
+    box-shadow:0 0 10px rgba(126,231,255,.7);
+}
+
+.activity-message{
+    margin-top:7px;
+    color:rgba(255,255,255,.72);
+    font-size:12.5px;
+    line-height:1.55;
+}
+
+.activity-time{
+    margin-top:8px;
+    color:rgba(255,255,255,.42);
+    font-size:10.5px;
+}
+
+.activity-empty,
+.activity-guest{
+    padding:34px 24px 32px;
+    text-align:center;
+}
+
+.activity-empty-icon,
+.activity-guest-icon{
+    width:48px;
+    height:48px;
+    margin:0 auto 14px;
+    display:grid;
+    place-items:center;
+    border:1px solid rgba(126,231,255,.18);
+    border-radius:15px;
+    background:rgba(126,231,255,.08);
+    color:#a4efff;
+    font-size:19px;
+}
+
+.activity-empty h4{
+    margin:0;
+    color:#fff;
+    font-size:15px;
+}
+
+.activity-empty p,
+.activity-guest p{
+    max-width:290px;
+    margin:7px auto 0;
+    color:rgba(255,255,255,.52);
+    font-size:12px;
+    line-height:1.55;
+}
+
+.activity-guest h3{ font-size:20px; }
+
+.activity-login-btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    min-height:42px;
+    margin-top:19px;
+    padding:10px 18px;
+    border:1px solid rgba(126,231,255,.32);
+    border-radius:12px;
+    background:rgba(65,175,201,.13);
+    color:#fff;
+    text-decoration:none;
+    font-size:12.5px;
+    font-weight:750;
+    transition:.2s ease;
+}
+
+.activity-login-btn:hover{
+    color:#fff;
+    background:rgba(65,175,201,.20);
+    border-color:rgba(126,231,255,.50);
+    transform:translateY(-1px);
+}
+
+.activity-footer{
+    padding:13px 20px 16px;
+    border-top:1px solid rgba(255,255,255,.08);
+}
+
+.activity-footer a{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    color:#a7edff;
+    text-decoration:none;
+    font-size:12px;
+    font-weight:750;
+}
+
+.activity-footer a:hover{ color:#fff; }
+
+@media(max-width:900px){
+    .activity-panel{ right:-8px; }
+}
+
+@media(max-width:620px){
+    .activity-btn{ width:44px; height:44px; border-radius:13px; }
+    .activity-panel{ right:-6px; top:56px; }
+}
+
+@media(prefers-reduced-motion:reduce){
+    .activity-btn,
+    .activity-panel,
+    .activity-card,
+    .activity-login-btn{ transition:none; }
+}

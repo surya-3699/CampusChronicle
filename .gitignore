@@ -1,0 +1,13 @@
+.env
+.env.*
+!.env.example
+*.log
+*.zip
+*.sql.gz
+storage/*
+!storage/.htaccess
+docs/verification/
+# Runtime uploads are persisted outside Git in production. Release seed files
+# are force-added explicitly after verification.
+public/uploads/**
+!public/uploads/.htaccess

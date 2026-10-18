@@ -1,0 +1,815 @@
+/* ============================================================
+   CAMPUS CHRONICLE — LIQUID GLASS SYSTEM
+   Global visual layer. Loaded after the existing component CSS.
+   Purpose: transform the existing UI without touching business logic.
+============================================================ */
+
+:root{
+  --lg-bg-0:#060914;
+  --lg-bg-1:#0a1020;
+  --lg-bg-2:#101b38;
+  --lg-text:#f6f8ff;
+  --lg-text-soft:rgba(236,242,255,.72);
+  --lg-text-muted:rgba(218,228,250,.52);
+  --lg-accent:#86a8ff;
+  --lg-accent-2:#b79bff;
+  --lg-cyan:#6fe9ff;
+  --lg-success:#58e6a8;
+  --lg-danger:#ff7b92;
+  --lg-warning:#ffd47a;
+
+  --lg-surface-1:rgba(255,255,255,.055);
+  --lg-surface-2:rgba(255,255,255,.09);
+  --lg-surface-3:rgba(255,255,255,.135);
+  --lg-border:rgba(255,255,255,.16);
+  --lg-border-strong:rgba(255,255,255,.25);
+  --lg-highlight:rgba(255,255,255,.30);
+  --lg-shadow:0 24px 70px rgba(0,0,0,.28);
+  --lg-shadow-soft:0 12px 34px rgba(0,0,0,.20);
+  --lg-blur:22px;
+  --lg-radius-sm:12px;
+  --lg-radius-md:18px;
+  --lg-radius-lg:26px;
+  --lg-radius-xl:34px;
+  --lg-ease:cubic-bezier(.22,.72,.18,1);
+}
+
+html{scroll-behavior:smooth;}
+body.liquid-glass-app,
+body.liquid-glass-app *{border-color:var(--lg-border);}
+
+body.liquid-glass-app{
+  color:var(--lg-text);
+  background:
+    radial-gradient(circle at 12% 14%,rgba(129,72,113,.28),transparent 25%),
+    radial-gradient(circle at 88% 20%,rgba(62,94,213,.24),transparent 28%),
+    radial-gradient(circle at 70% 82%,rgba(32,156,141,.20),transparent 26%),
+    linear-gradient(135deg,var(--lg-bg-0),var(--lg-bg-1) 48%,var(--lg-bg-2));
+  background-attachment:fixed;
+}
+
+body.liquid-glass-app::before{
+  content:"";
+  position:fixed;
+  inset:-15%;
+  z-index:-2;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 25% 30%,rgba(255,255,255,.10),transparent 14%),
+    radial-gradient(circle at 75% 68%,rgba(92,134,255,.11),transparent 20%),
+    radial-gradient(circle at 55% 92%,rgba(62,223,193,.08),transparent 18%);
+  filter:blur(48px);
+  animation:lg-ambient 18s ease-in-out infinite alternate;
+}
+
+body.liquid-glass-app::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  opacity:.16;
+  background-image:
+    radial-gradient(circle at 20% 30%,rgba(255,255,255,.11) 0 1px,transparent 1.2px),
+    radial-gradient(circle at 70% 60%,rgba(255,255,255,.07) 0 1px,transparent 1.2px);
+  background-size:17px 17px,23px 23px;
+  mix-blend-mode:screen;
+}
+
+@keyframes lg-ambient{
+  0%{transform:translate3d(-2%,-1%,0) scale(1);}
+  50%{transform:translate3d(2%,1%,0) scale(1.06);}
+  100%{transform:translate3d(-1%,3%,0) scale(1.03);}
+}
+
+/* ============================================================
+   SHARED MATERIAL
+============================================================ */
+
+.liquid-surface,
+body.liquid-glass-app .card,
+body.liquid-glass-app .feature-card,
+body.liquid-glass-app .mission-card,
+body.liquid-glass-app .stat-box,
+body.liquid-glass-app .stat-card,
+body.liquid-glass-app .event-card,
+body.liquid-glass-app .gallery-card,
+body.liquid-glass-app .media-card,
+body.liquid-glass-app .coordinator-card,
+body.liquid-glass-app .details-card,
+body.liquid-glass-app .my-event-card,
+body.liquid-glass-app .cert-card,
+body.liquid-glass-app .activity-card,
+body.liquid-glass-app .dashboard-panel,
+body.liquid-glass-app .upload-card,
+body.liquid-glass-app .empty-state-block,
+body.liquid-glass-app .empty-events,
+body.liquid-glass-app .empty-gallery,
+body.liquid-glass-app .contacts-list,
+body.liquid-glass-app .contacts-detail,
+body.liquid-glass-app .event-sidebar,
+body.liquid-glass-app .event-details-sidebar,
+body.liquid-glass-app .login,
+body.liquid-glass-app .cta,
+body.liquid-glass-app .mission,
+body.liquid-glass-app .vision,
+body.liquid-glass-app .why,
+body.liquid-glass-app .features,
+body.liquid-glass-app .admin-sidebar{
+  position:relative;
+  isolation:isolate;
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.14),rgba(255,255,255,.055) 54%,rgba(255,255,255,.075));
+  border:1px solid var(--lg-border) !important;
+  border-radius:var(--lg-radius-lg);
+  box-shadow:
+    inset 0 1px 0 var(--lg-highlight),
+    inset 0 -1px 0 rgba(255,255,255,.06),
+    var(--lg-shadow);
+  backdrop-filter:blur(var(--lg-blur)) saturate(155%);
+  -webkit-backdrop-filter:blur(var(--lg-blur)) saturate(155%);
+  overflow:hidden;
+}
+
+.liquid-surface::before,
+body.liquid-glass-app .card::before,
+body.liquid-glass-app .feature-card::before,
+body.liquid-glass-app .mission-card::before,
+body.liquid-glass-app .stat-box::before,
+body.liquid-glass-app .stat-card::before,
+body.liquid-glass-app .event-card::before,
+body.liquid-glass-app .gallery-card::before,
+body.liquid-glass-app .media-card::before,
+body.liquid-glass-app .coordinator-card::before,
+body.liquid-glass-app .details-card::before,
+body.liquid-glass-app .my-event-card::before,
+body.liquid-glass-app .cert-card::before,
+body.liquid-glass-app .activity-card::before,
+body.liquid-glass-app .dashboard-panel::before,
+body.liquid-glass-app .upload-card::before,
+body.liquid-glass-app .empty-state-block::before,
+body.liquid-glass-app .empty-events::before,
+body.liquid-glass-app .empty-gallery::before,
+body.liquid-glass-app .contacts-list::before,
+body.liquid-glass-app .contacts-detail::before,
+body.liquid-glass-app .event-sidebar::before,
+body.liquid-glass-app .event-details-sidebar::before,
+body.liquid-glass-app .login::before,
+body.liquid-glass-app .cta::before,
+body.liquid-glass-app .admin-sidebar::before,
+body.liquid-glass-app .admin-content::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  background:
+    linear-gradient(125deg,rgba(255,255,255,.24),transparent 26%,transparent 72%,rgba(255,255,255,.07)),
+    radial-gradient(circle at 20% 12%,rgba(255,255,255,.10),transparent 20%);
+}
+
+body.liquid-glass-app .card:hover,
+body.liquid-glass-app .feature-card:hover,
+body.liquid-glass-app .mission-card:hover,
+body.liquid-glass-app .stat-box:hover,
+body.liquid-glass-app .stat-card:hover,
+body.liquid-glass-app .event-card:hover,
+body.liquid-glass-app .gallery-card:hover,
+body.liquid-glass-app .media-card:hover,
+body.liquid-glass-app .coordinator-card:hover,
+body.liquid-glass-app .details-card:hover,
+body.liquid-glass-app .my-event-card:hover,
+body.liquid-glass-app .cert-card:hover{
+  transform:translateY(-4px);
+  border-color:var(--lg-border-strong) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.34),
+    0 30px 80px rgba(0,0,0,.32);
+}
+
+body.liquid-glass-app .card,
+body.liquid-glass-app .feature-card,
+body.liquid-glass-app .mission-card,
+body.liquid-glass-app .stat-box,
+body.liquid-glass-app .stat-card,
+body.liquid-glass-app .event-card,
+body.liquid-glass-app .gallery-card,
+body.liquid-glass-app .media-card,
+body.liquid-glass-app .coordinator-card,
+body.liquid-glass-app .details-card,
+body.liquid-glass-app .my-event-card,
+body.liquid-glass-app .cert-card{
+  transition:transform .34s var(--lg-ease),box-shadow .34s var(--lg-ease),border-color .34s var(--lg-ease),background .34s var(--lg-ease);
+}
+
+/* ============================================================
+   NAVIGATION
+============================================================ */
+
+body.liquid-glass-app header{
+  padding:10px 4%;
+  background:transparent;
+}
+
+body.liquid-glass-app nav{
+  width:min(1440px,100%);
+  min-height:68px;
+  margin:0 auto;
+  padding:8px 14px;
+  border:1px solid var(--lg-border) !important;
+  border-radius:24px;
+  background:rgba(11,17,34,.52);
+  backdrop-filter:blur(28px) saturate(170%);
+  -webkit-backdrop-filter:blur(28px) saturate(170%);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.22),
+    0 18px 50px rgba(0,0,0,.24);
+}
+
+body.liquid-glass-app .logo-link{
+  color:var(--lg-text) !important;
+  text-shadow:0 1px 12px rgba(134,168,255,.18);
+}
+
+body.liquid-glass-app .logo-link:hover{
+  color:#fff !important;
+  transform:translateY(-1px);
+}
+
+body.liquid-glass-app nav ul li>a,
+body.liquid-glass-app .cc-dropdown-toggle{
+  border:1px solid transparent !important;
+  border-radius:16px;
+  color:var(--lg-text-soft);
+  transition:transform .22s var(--lg-ease),background .22s ease,border-color .22s ease,box-shadow .22s ease,color .22s ease;
+}
+
+body.liquid-glass-app nav ul li>a:hover,
+body.liquid-glass-app .cc-dropdown-toggle:hover,
+body.liquid-glass-app nav ul li.active>a,
+body.liquid-glass-app .cc-dropdown.active>.cc-dropdown-toggle{
+  color:#fff;
+  background:rgba(255,255,255,.11);
+  border-color:rgba(255,255,255,.20) !important;
+  transform:translateY(-2px);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.25),0 8px 24px rgba(75,98,192,.18);
+}
+
+body.liquid-glass-app .nav-toggle{
+  background:rgba(255,255,255,.08);
+  border:1px solid var(--lg-border) !important;
+  border-radius:16px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.2),var(--lg-shadow-soft);
+}
+
+body.liquid-glass-app .nav-overlay{background:rgba(1,5,14,.55);backdrop-filter:blur(8px);}
+
+body.liquid-glass-app .cc-dropdown-menu,
+body.liquid-glass-app .activity-panel{
+  background:rgba(12,18,34,.76) !important;
+  border:1px solid var(--lg-border-strong) !important;
+  border-radius:24px !important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.24),0 32px 80px rgba(0,0,0,.38) !important;
+  backdrop-filter:blur(30px) saturate(165%);
+  -webkit-backdrop-filter:blur(30px) saturate(165%);
+}
+
+body.liquid-glass-app .cc-dropdown-item:hover,
+body.liquid-glass-app .activity-card:hover{
+  background:rgba(255,255,255,.08) !important;
+}
+
+/* ============================================================
+   HERO / LANDING
+============================================================ */
+
+body.liquid-glass-app .hero{
+  min-height:calc(86vh - 80px);
+  height:auto;
+  padding:100px 5% 70px;
+  gap:38px;
+}
+
+body.liquid-glass-app .left{max-width:660px;}
+
+body.liquid-glass-app .left h1{
+  font-size:clamp(42px,6vw,78px);
+  line-height:.96;
+  letter-spacing:-.055em;
+  text-wrap:balance;
+  text-shadow:0 10px 40px rgba(0,0,0,.24);
+}
+
+body.liquid-glass-app .left p{
+  color:var(--lg-text-soft);
+  max-width:650px;
+}
+
+body.liquid-glass-app .login{
+  width:min(370px,100%);
+  padding:28px;
+  border-radius:30px;
+}
+
+body.liquid-glass-app .login input,
+body.liquid-glass-app input,
+body.liquid-glass-app textarea,
+body.liquid-glass-app select,
+body.liquid-glass-app .form-control,
+body.liquid-glass-app .form-select{
+  color:#fff !important;
+  background:rgba(255,255,255,.07) !important;
+  border:1px solid rgba(255,255,255,.16) !important;
+  border-radius:15px !important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 8px 24px rgba(0,0,0,.10) !important;
+}
+
+body.liquid-glass-app input::placeholder,
+body.liquid-glass-app textarea::placeholder{
+  color:rgba(231,238,255,.42) !important;
+}
+
+body.liquid-glass-app input:focus,
+body.liquid-glass-app textarea:focus,
+body.liquid-glass-app select:focus,
+body.liquid-glass-app .form-control:focus,
+body.liquid-glass-app .form-select:focus{
+  border-color:rgba(134,168,255,.58) !important;
+  box-shadow:0 0 0 3px rgba(134,168,255,.13),inset 0 1px 0 rgba(255,255,255,.17) !important;
+  outline:none !important;
+}
+
+/* ============================================================
+   BUTTONS — physical / layered
+============================================================ */
+
+body.liquid-glass-app a.btn,
+body.liquid-glass-app button.btn,
+body.liquid-glass-app .btn-primary,
+body.liquid-glass-app .btn-secondary,
+body.liquid-glass-app .btn-success,
+body.liquid-glass-app .btn-warning,
+body.liquid-glass-app .btn-danger,
+body.liquid-glass-app .btn-info,
+body.liquid-glass-app .btn-dark,
+body.liquid-glass-app .btn-outline-primary,
+body.liquid-glass-app .btn-outline-success,
+body.liquid-glass-app .btn-outline-warning,
+body.liquid-glass-app .btn-outline-danger,
+body.liquid-glass-app .btn-outline-info,
+body.liquid-glass-app .btn-outline-light,
+body.liquid-glass-app .save-btn,
+body.liquid-glass-app .reset-btn,
+body.liquid-glass-app .cancel-btn,
+body.liquid-glass-app .back-btn,
+body.liquid-glass-app .add-event-btn,
+body.liquid-glass-app .manage-btn,
+body.liquid-glass-app .edit-btn,
+body.liquid-glass-app .delete-btn,
+body.liquid-glass-app .reg-btn-full,
+body.liquid-glass-app .login-btn,
+body.liquid-glass-app .activity-btn{
+  color:#f7f9ff !important;
+  border:1px solid rgba(255,255,255,.20) !important;
+  border-radius:15px !important;
+  background:linear-gradient(145deg,rgba(255,255,255,.16),rgba(255,255,255,.07)) !important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.28),0 12px 30px rgba(0,0,0,.16) !important;
+  transition:transform .22s var(--lg-ease),background .22s ease,border-color .22s ease,box-shadow .22s ease !important;
+}
+
+body.liquid-glass-app a.btn:hover,
+body.liquid-glass-app button.btn:hover,
+body.liquid-glass-app .btn-primary:hover,
+body.liquid-glass-app .btn-secondary:hover,
+body.liquid-glass-app .btn-success:hover,
+body.liquid-glass-app .btn-warning:hover,
+body.liquid-glass-app .btn-danger:hover,
+body.liquid-glass-app .btn-info:hover,
+body.liquid-glass-app .btn-dark:hover,
+body.liquid-glass-app .btn-outline-primary:hover,
+body.liquid-glass-app .btn-outline-success:hover,
+body.liquid-glass-app .btn-outline-warning:hover,
+body.liquid-glass-app .btn-outline-danger:hover,
+body.liquid-glass-app .btn-outline-info:hover,
+body.liquid-glass-app .btn-outline-light:hover,
+body.liquid-glass-app .save-btn:hover,
+body.liquid-glass-app .reset-btn:hover,
+body.liquid-glass-app .cancel-btn:hover,
+body.liquid-glass-app .back-btn:hover,
+body.liquid-glass-app .add-event-btn:hover,
+body.liquid-glass-app .manage-btn:hover,
+body.liquid-glass-app .edit-btn:hover,
+body.liquid-glass-app .delete-btn:hover,
+body.liquid-glass-app .reg-btn-full:hover,
+body.liquid-glass-app .login-btn:hover,
+body.liquid-glass-app .activity-btn:hover{
+  background:linear-gradient(145deg,rgba(255,255,255,.24),rgba(255,255,255,.10)) !important;
+  border-color:rgba(255,255,255,.34) !important;
+  transform:translateY(-2px);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.32),0 16px 36px rgba(60,89,190,.20) !important;
+}
+
+body.liquid-glass-app a.btn:active,
+body.liquid-glass-app button.btn:active,
+body.liquid-glass-app .btn:active,
+body.liquid-glass-app .save-btn:active,
+body.liquid-glass-app .login-btn:active{
+  transform:translateY(1px) scale(.985);
+}
+
+body.liquid-glass-app .btn-primary,
+body.liquid-glass-app .login-btn{
+  background:linear-gradient(135deg,rgba(141,115,255,.90),rgba(82,143,255,.80)) !important;
+  border-color:rgba(255,255,255,.32) !important;
+}
+
+/* ============================================================
+   TYPOGRAPHY + SECTIONS
+============================================================ */
+
+body.liquid-glass-app h1,
+body.liquid-glass-app h2,
+body.liquid-glass-app h3,
+body.liquid-glass-app h4,
+body.liquid-glass-app h5{
+  color:var(--lg-text);
+}
+
+body.liquid-glass-app p,
+body.liquid-glass-app .text-muted,
+body.liquid-glass-app small{
+  color:var(--lg-text-soft);
+}
+
+body.liquid-glass-app .section-title{
+  position:relative;
+  max-width:900px;
+  margin:0 auto 38px;
+  text-align:center;
+}
+
+body.liquid-glass-app .section-title h1{
+  font-size:clamp(34px,4vw,56px);
+  letter-spacing:-.04em;
+}
+
+body.liquid-glass-app .section-title p{color:var(--lg-text-muted);}
+
+body.liquid-glass-app .about-section{padding:74px 5%;}
+
+/* ============================================================
+   STATS / CHIPS / FEATURES
+============================================================ */
+
+body.liquid-glass-app .stats{
+  gap:18px;
+}
+
+body.liquid-glass-app .stat-box,
+body.liquid-glass-app .stat-card{
+  min-height:150px;
+  padding:26px;
+  text-align:center;
+}
+
+body.liquid-glass-app .stat-box h1,
+body.liquid-glass-app .stat-card h1{
+  font-size:clamp(30px,4vw,48px);
+  color:#fff;
+  text-shadow:0 7px 28px rgba(115,145,255,.18);
+}
+
+body.liquid-glass-app .category-chip,
+body.liquid-glass-app .status-badge,
+body.liquid-glass-app .event-category,
+body.liquid-glass-app .pill,
+body.liquid-glass-app .chip{
+  border:1px solid rgba(255,255,255,.15) !important;
+  background:rgba(255,255,255,.08) !important;
+  color:#f4f7ff !important;
+  border-radius:999px !important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.18);
+}
+
+body.liquid-glass-app .category-chip:hover,
+body.liquid-glass-app .event-category:hover{
+  background:rgba(255,255,255,.13) !important;
+}
+
+/* ============================================================
+   MEDIA / EVENT CARDS
+============================================================ */
+
+body.liquid-glass-app .event-banner,
+body.liquid-glass-app .gallery-cover,
+body.liquid-glass-app .gallery-image,
+body.liquid-glass-app .gallery-photo,
+body.liquid-glass-app .event-thumb,
+body.liquid-glass-app .my-event-thumb,
+body.liquid-glass-app .team-image{
+  border-radius:20px;
+  overflow:hidden;
+}
+
+body.liquid-glass-app .event-banner img,
+body.liquid-glass-app .gallery-cover img,
+body.liquid-glass-app .gallery-image img,
+body.liquid-glass-app .gallery-photo img,
+body.liquid-glass-app .event-thumb img,
+body.liquid-glass-app .my-event-thumb img,
+body.liquid-glass-app .team-image img{
+  transition:transform .6s var(--lg-ease),filter .6s ease;
+}
+
+body.liquid-glass-app .event-card:hover img,
+body.liquid-glass-app .gallery-card:hover img,
+body.liquid-glass-app .media-card:hover img,
+body.liquid-glass-app .coordinator-card:hover img{
+  transform:scale(1.035);
+  filter:saturate(1.08) brightness(1.03);
+}
+
+/* ============================================================
+   FORMS / TABLES / FILTER AREAS
+============================================================ */
+
+body.liquid-glass-app .event-form,
+body.liquid-glass-app .gallery-form,
+body.liquid-glass-app .media-form,
+body.liquid-glass-app .verify-form,
+body.liquid-glass-app .form-grid,
+body.liquid-glass-app .inline-form,
+body.liquid-glass-app .table-wrapper,
+body.liquid-glass-app .table-responsive,
+body.liquid-glass-app .table-toolbar,
+body.liquid-glass-app .event-search,
+body.liquid-glass-app .reg-filter-tabs,
+body.liquid-glass-app .event-tabs,
+body.liquid-glass-app .sidebar-section{
+  border:1px solid var(--lg-border);
+  border-radius:22px;
+  background:rgba(255,255,255,.045);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.12),var(--lg-shadow-soft);
+  backdrop-filter:blur(18px) saturate(145%);
+  -webkit-backdrop-filter:blur(18px) saturate(145%);
+}
+
+body.liquid-glass-app .table{
+  --bs-table-bg:transparent;
+  --bs-table-color:#eef3ff;
+  --bs-table-border-color:rgba(255,255,255,.10);
+}
+
+body.liquid-glass-app .table thead th{
+  background:rgba(255,255,255,.07) !important;
+  color:#fff;
+}
+
+body.liquid-glass-app .table tbody tr:hover{
+  background:rgba(255,255,255,.055) !important;
+}
+
+body.liquid-glass-app .table-light,
+body.liquid-glass-app .table-dark{
+  --bs-table-bg:transparent !important;
+  --bs-table-color:#eef3ff !important;
+}
+
+/* ============================================================
+   ADMIN AREAS
+============================================================ */
+
+body.liquid-glass-app .admin-sidebar{
+  background:rgba(10,16,30,.66) !important;
+  border-radius:26px;
+}
+
+body.liquid-glass-app .admin-content,
+body.liquid-glass-app .admin-container{
+  display:block;
+  width:100%;
+  min-width:0;
+  background:transparent !important;
+  border:0 !important;
+  border-radius:0 !important;
+  box-shadow:none !important;
+  backdrop-filter:none !important;
+  -webkit-backdrop-filter:none !important;
+  padding-top:36px;
+  padding-bottom:60px;
+}
+
+body.liquid-glass-app .sidebar-menu a,
+body.liquid-glass-app .sidebar-toggle,
+body.liquid-glass-app .sidebar-top{
+  border-radius:15px;
+}
+
+body.liquid-glass-app .sidebar-menu a:hover,
+body.liquid-glass-app .sidebar-menu a.active{
+  background:rgba(255,255,255,.10) !important;
+  border:1px solid rgba(255,255,255,.16);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.18);
+}
+
+/* ============================================================
+   FOOTER
+============================================================ */
+
+body.liquid-glass-app .site-footer{
+  margin:48px 4% 20px;
+  border:1px solid var(--lg-border);
+  border-radius:28px;
+  background:rgba(8,13,26,.58);
+  backdrop-filter:blur(24px) saturate(155%);
+  -webkit-backdrop-filter:blur(24px) saturate(155%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 22px 60px rgba(0,0,0,.22);
+}
+
+body.liquid-glass-app .footer-inner{padding:40px 5%;}
+body.liquid-glass-app .footer-bottom{border-top:1px solid rgba(255,255,255,.10);}
+
+/* ============================================================
+   MODALS / TOASTS
+============================================================ */
+
+body.liquid-glass-app .logout-modal{
+  background:rgba(1,4,12,.48) !important;
+  backdrop-filter:blur(12px);
+}
+
+body.liquid-glass-app .logout-box{
+  max-width:520px;
+  background:rgba(13,19,36,.78) !important;
+  color:var(--lg-text) !important;
+  border:1px solid var(--lg-border-strong) !important;
+  border-radius:28px !important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 35px 100px rgba(0,0,0,.42) !important;
+  backdrop-filter:blur(30px) saturate(165%);
+  -webkit-backdrop-filter:blur(30px) saturate(165%);
+}
+
+body.liquid-glass-app .logout-box p{color:var(--lg-text-soft) !important;}
+
+/* ============================================================
+   ACCESSIBILITY / REDUCED MOTION
+============================================================ */
+
+body.liquid-glass-app :focus-visible{
+  outline:2px solid rgba(134,168,255,.9) !important;
+  outline-offset:3px;
+}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.001ms !important;
+    animation-iteration-count:1 !important;
+    scroll-behavior:auto !important;
+    transition-duration:.001ms !important;
+  }
+}
+
+/* ============================================================
+   MOBILE
+============================================================ */
+
+@media(max-width:900px){
+  body.liquid-glass-app header{padding:8px 3%;}
+  body.liquid-glass-app nav{border-radius:20px;}
+  body.liquid-glass-app #navMenu{
+    background:rgba(9,14,27,.82) !important;
+    border-left:1px solid var(--lg-border-strong) !important;
+    backdrop-filter:blur(30px) saturate(160%);
+    -webkit-backdrop-filter:blur(30px) saturate(160%);
+    box-shadow:-18px 0 50px rgba(0,0,0,.25);
+  }
+  body.liquid-glass-app .hero{padding:82px 5% 56px;}
+}
+
+@media(max-width:600px){
+  :root{--lg-radius-lg:22px;--lg-radius-xl:28px;--lg-blur:18px;}
+  body.liquid-glass-app .hero{padding-top:64px;}
+  body.liquid-glass-app .about-section{padding:52px 4%;}
+  body.liquid-glass-app .footer-inner{padding:28px 7%;}
+  body.liquid-glass-app .card,
+  body.liquid-glass-app .feature-card,
+  body.liquid-glass-app .event-card,
+  body.liquid-glass-app .gallery-card{border-radius:22px;}
+}
+
+/* ============================================================
+   AUTH PAGES (same material, separate body class optional)
+============================================================ */
+
+.auth-liquid-glass{
+  color:var(--lg-text);
+  background:
+    radial-gradient(circle at 18% 18%,rgba(139,71,115,.32),transparent 25%),
+    radial-gradient(circle at 82% 26%,rgba(56,86,205,.28),transparent 28%),
+    radial-gradient(circle at 60% 86%,rgba(21,145,132,.22),transparent 26%),
+    linear-gradient(135deg,#050812,#0a1224 56%,#101b36);
+}
+
+.auth-liquid-glass::before{
+  content:"";
+  position:fixed;
+  inset:-15%;
+  pointer-events:none;
+  background:radial-gradient(circle at 22% 30%,rgba(255,255,255,.10),transparent 16%),radial-gradient(circle at 78% 68%,rgba(105,148,255,.12),transparent 18%);
+  filter:blur(50px);
+  animation:lg-ambient 18s ease-in-out infinite alternate;
+}
+
+.auth-liquid-glass .auth-container{
+  background:linear-gradient(145deg,rgba(255,255,255,.13),rgba(255,255,255,.045));
+  border:1px solid rgba(255,255,255,.19);
+  border-radius:34px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.25),0 36px 100px rgba(0,0,0,.36);
+  backdrop-filter:blur(28px) saturate(155%);
+  -webkit-backdrop-filter:blur(28px) saturate(155%);
+}
+
+.auth-liquid-glass .brand-panel{
+  background:linear-gradient(145deg,rgba(255,255,255,.07),rgba(255,255,255,.025));
+  border-right:1px solid rgba(255,255,255,.12);
+}
+
+.auth-liquid-glass .auth-card{
+  background:linear-gradient(145deg,rgba(255,255,255,.12),rgba(255,255,255,.045));
+  border-left:1px solid rgba(255,255,255,.08);
+}
+
+.auth-liquid-glass .auth-card input,
+.auth-liquid-glass .password-wrapper input{
+  color:#fff;
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.16);
+  border-radius:15px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.10);
+}
+
+.auth-liquid-glass .auth-btn{
+  color:#fff;
+  border:1px solid rgba(255,255,255,.28);
+  background:linear-gradient(135deg,rgba(143,113,255,.92),rgba(77,142,255,.82));
+  border-radius:16px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.30),0 16px 36px rgba(77,103,204,.20);
+}
+
+.auth-liquid-glass .auth-btn:hover{transform:translateY(-2px);}
+
+/* ============================================================
+   WELCOME SCREEN
+============================================================ */
+
+.welcome-liquid-glass #loading-screen,
+.welcome-liquid-glass #welcome-screen{background:transparent;}
+
+.welcome-liquid-glass::after{
+  background:
+    linear-gradient(135deg,rgba(4,8,20,.64),rgba(10,18,45,.54)),
+    radial-gradient(circle at 18% 18%,rgba(160,88,129,.24),transparent 28%),
+    radial-gradient(circle at 82% 32%,rgba(71,104,216,.24),transparent 30%);
+}
+
+.welcome-liquid-glass .logo-wrapper,
+.welcome-liquid-glass .welcome-container{
+  background:linear-gradient(145deg,rgba(255,255,255,.14),rgba(255,255,255,.055));
+  border:1px solid rgba(255,255,255,.22);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.28),0 30px 80px rgba(0,0,0,.34);
+  backdrop-filter:blur(26px) saturate(150%);
+  -webkit-backdrop-filter:blur(26px) saturate(150%);
+}
+
+.welcome-liquid-glass .welcome-container{
+  border-radius:36px;
+  padding:42px;
+}
+
+.welcome-liquid-glass #enterBtn{
+  background:linear-gradient(135deg,rgba(145,113,255,.92),rgba(77,143,255,.84)) !important;
+  border:1px solid rgba(255,255,255,.30) !important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.34),0 18px 38px rgba(77,103,204,.22) !important;
+  border-radius:16px !important;
+}
+
+.welcome-liquid-glass .skip-intro{
+  color:#eef4ff;
+  opacity:.74;
+}
+
+/* ============================================================
+   SAFE FALLBACK
+============================================================ */
+
+@supports not ((backdrop-filter:blur(2px)) or (-webkit-backdrop-filter:blur(2px))){
+  body.liquid-glass-app .card,
+  body.liquid-glass-app .feature-card,
+  body.liquid-glass-app .event-card,
+  body.liquid-glass-app .gallery-card,
+  body.liquid-glass-app nav,
+  .auth-liquid-glass .auth-container,
+  .welcome-liquid-glass .welcome-container{
+    background:rgba(17,24,45,.94);
+  }
+}
